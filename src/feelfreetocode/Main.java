@@ -27,6 +27,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        DataCollector dataCollector = new DataCollector();
+        dataCollector.collectData();
+        System.out.println(new DataManager().getData());
+
+
+
         Parent root = FXMLLoader.load(getClass().getResource("fxmls/Main.fxml"));
         primaryStage.setTitle("Covid 19 Information");
         primaryStage.setScene(new Scene(root, 300, 275));
@@ -35,11 +41,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws Exception{
-//        launch(args);
-
-        DataCollector dataCollector = new DataCollector();
-        dataCollector.collectData();
-        System.out.println(new DataManager().getData());
+        launch(args);
 
 
     }
