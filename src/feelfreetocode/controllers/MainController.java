@@ -18,7 +18,6 @@ public class MainController implements Initializable {
             Node node = FXMLLoader.load(getClass().getResource("../fxmls/tableviewfxml.fxml"));
             tableviewTab.setContent(node);
         }catch (Exception ex){
-
             ex.printStackTrace();
             System.out.println("File Not Found..");
         }
