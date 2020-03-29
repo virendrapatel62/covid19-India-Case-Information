@@ -17,6 +17,10 @@ public class MainController implements Initializable {
         try{
             Node node = FXMLLoader.load(getClass().getResource("../fxmls/tableviewfxml.fxml"));
             tableviewTab.setContent(node);
+
+
+            Node node2 = FXMLLoader.load(getClass().getResource("../fxmls/dashboardFxml.fxml"));
+            dashboardTab.setContent(node2);
         }catch (Exception ex){
             ex.printStackTrace();
             System.out.println("File Not Found..");
