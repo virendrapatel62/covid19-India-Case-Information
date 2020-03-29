@@ -1,6 +1,8 @@
 package feelfreetocode;
 
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import feelfreetocode.models.DataCollector;
+import feelfreetocode.models.DataManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -33,28 +37,10 @@ public class Main extends Application {
     public static void main(String[] args) throws Exception{
 //        launch(args);
 
-        SSLContext context = SSLContext.getInstance("SSL");
-        context.init(null , new TrustManager[]{
-                new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        DataCollector dataCollector = new DataCollector();
+        dataCollector.collectData();
+        System.out.println(new DataManager().getData());
 
-                    }
 
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-
-                    }
-
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                }
-        },  new SecureRandom());
-
-        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
-        Document document =  Jsoup.connect("https://www.mohfw.gov.in/").get();
-        System.out.println(document);
     }
 }
