@@ -14,9 +14,11 @@ import javax.net.ssl.X509TrustManager;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataCollector {
+    private ArrayList<Case> cases = new ArrayList<>();
     private  DataManager dataManager = new DataManager();
     public void collectData() throws  Exception{
         SSLContext context = SSLContext.getInstance("SSL");
@@ -73,10 +75,13 @@ public class DataCollector {
                                 Integer.parseInt(colValues.get(3)) ,
                                 Integer.parseInt(colValues.get(4))
                         );
-
-                        dataManager.append(cs);
+                    cases.add(cs);
                     }
+
+
                 }
+
+                dataManager.addAll(cases);
             }
         });
 

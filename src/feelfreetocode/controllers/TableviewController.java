@@ -2,6 +2,7 @@ package feelfreetocode.controllers;
 
 import feelfreetocode.models.Case;
 import feelfreetocode.models.DataManager;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,16 @@ public class TableviewController implements Initializable {
         cured.setCellValueFactory(new PropertyValueFactory("cured"));
         deaths.setCellValueFactory(new PropertyValueFactory("deaths"));
         ObservableList<Case> data = table.getItems();
-        data.addAll(dataManager.getData());
+//        data.addAll(dataManager.getData());
+
+        dataManager.getData().addListener(
+                new ListChangeListener<Case>() {
+                    @Override
+                    public void onChanged(Change<? extends Case> c) {
+                        table.getItems().clear();
+                        table.getItems().addAll(dataManager.getData());
+                    }
+                }
+        );
     }
 }

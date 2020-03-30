@@ -25,7 +25,11 @@ public class DashboardController implements Initializable {
         new DataManager().getData().addListener(new ListChangeListener<Case>() {
             @Override
             public void onChanged(Change<? extends Case> c) {
+                choicebox.getItems().clear();
+                choicebox.getItems().addAll("Confirmed" , "Cured" , "Deaths");
+
                 loadChart("Confirmed");
+
             }
         });
 
@@ -52,7 +56,6 @@ public class DashboardController implements Initializable {
     }
 
     private void addChoice(){
-        this.choicebox.getItems().addAll("Confirmed" , "Cured" , "Deaths");
 
         this.choicebox.getSelectionModel()
                 .selectedItemProperty()

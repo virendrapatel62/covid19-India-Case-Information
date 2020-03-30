@@ -4,6 +4,7 @@ import feelfreetocode.models.Case;
 import feelfreetocode.models.DataManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
@@ -23,12 +24,22 @@ public class PieChartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cases = new DataManager().getData();
-        setSettingsForChoiceBox();
-        loadAll(values[0]);
-        if(cases.size()>0){
-            loadStates(this.cases.get(0));
-        }
+        new DataManager().getData().addListener(
+                new ListChangeListener<Case>() {
+                    @Override
+                    public void onChanged(Change<? extends Case> c) {
+
+                        selectState.getItems().clear();;
+                        selectValue.getItems().clear();
+                        cases = new DataManager().getData();
+                        setSettingsForChoiceBox();
+                        loadAll(values[0]);
+                        if(cases.size()>0){
+                            loadStates(cases.get(0));
+                        }
+                    }
+                }
+        );
     }
 
     private  void setSettingsForChoiceBox(){
