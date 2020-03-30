@@ -57,12 +57,6 @@ public class Case {
 
     @Override
     public String toString() {
-        return "Case{" +
-                "sno=" + sno +
-                ", state='" + state + '\'' +
-                ", totalConfirmed=" + totalConfirmed +
-                ", cured=" + cured +
-                ", deaths=" + deaths +
-                "}\n";
+        return this.getState();
     }
 }
