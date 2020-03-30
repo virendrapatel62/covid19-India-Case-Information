@@ -4,6 +4,8 @@ import feelfreetocode.models.Case;
 import feelfreetocode.models.DataManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -20,12 +22,18 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addChoice();
-        loadChart("Confirmed");
+        new DataManager().getData().addListener(new ListChangeListener<Case>() {
+            @Override
+            public void onChanged(Change<? extends Case> c) {
+                loadChart("Confirmed");
+            }
+        });
+
     }
 
     private void loadChart(String valueType){
         this.barchart.getData().clear();
-        ArrayList<Case> cases = new DataManager().getData();
+        ObservableList<Case> cases = new DataManager().getData();
         XYChart.Series<String , Integer> series = new XYChart.Series<>();
         for(int i = 0 ; i < cases.size() ; i ++){
             Case cs = cases.get(i);

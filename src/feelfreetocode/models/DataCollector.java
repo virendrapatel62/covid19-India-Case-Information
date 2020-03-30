@@ -1,5 +1,6 @@
 package feelfreetocode.models;
 
+import javafx.application.Platform;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -51,26 +52,33 @@ public class DataCollector {
 
         Element tableBody = table.getElementsByTag("tbody").first();
         Elements rows = tableBody.getElementsByTag("tr");
-        int colCount = 5;
-        for(int i = 0 ; i < rows.size() ; i++){
 
-            Elements cols = rows.get(i).getElementsByTag("td");
-            if(i==0){
-                colCount = cols.size();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int colCount = 5;
+                for(int i = 0 ; i < rows.size() ; i++){
+
+
+                    Elements cols = rows.get(i).getElementsByTag("td");
+                    if(i==0){
+                        colCount = cols.size();
+                    }
+
+                    List<String> colValues = cols.eachText();
+                    if (colCount == cols.size()) {
+                        Case cs = new Case(i+1 ,
+                                colValues.get(1) ,
+                                Integer.parseInt(colValues.get(2)),
+                                Integer.parseInt(colValues.get(3)) ,
+                                Integer.parseInt(colValues.get(4))
+                        );
+
+                        dataManager.append(cs);
+                    }
+                }
             }
-
-            List<String> colValues = cols.eachText();
-            if (colCount == cols.size()) {
-                Case cs = new Case(i+1 ,
-                        colValues.get(1) ,
-                        Integer.parseInt(colValues.get(2)),
-                        Integer.parseInt(colValues.get(3)) ,
-                        Integer.parseInt(colValues.get(4))
-                );
-
-                this.dataManager.append(cs);
-            }
-        }
+        });
 
     }
 }

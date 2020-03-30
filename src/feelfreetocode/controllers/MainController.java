@@ -1,5 +1,9 @@
 package feelfreetocode.controllers;
 
+import com.jfoenix.controls.JFXSpinner;
+import feelfreetocode.models.DataCollector;
+import feelfreetocode.models.DataManager;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,6 +16,7 @@ public class MainController implements Initializable {
     public Tab dashboardTab;
     public Tab tableviewTab;
     public Tab piechart;
+    public JFXSpinner loading;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -25,10 +30,39 @@ public class MainController implements Initializable {
 
             Node node3 = FXMLLoader.load(getClass().getResource("../fxmls/pieChartFxml.fxml"));
             piechart.setContent(node3);
+
+
+            loadDataFromServer();
+
         }catch (Exception ex){
             ex.printStackTrace();
             System.out.println("File Not Found..");
         }
+    }
+
+    private void loadDataFromServer(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+               try{
+
+                   DataCollector dataCollector = new DataCollector();
+                   dataCollector.collectData();
+
+//                   System.out.println(new DataManager().getData());
+                   Platform.runLater(new Runnable() {
+                       @Override
+                       public void run() {
+                           loading.setVisible(false);
+                       }
+                   });
+
+               }catch (Exception ex){
+                   ex.printStackTrace();
+               }
+
+            }
+        }).start();
     }
 
 }

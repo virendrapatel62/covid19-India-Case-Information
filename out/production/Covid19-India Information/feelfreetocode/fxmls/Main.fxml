@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,5 +14,6 @@
             <Tab fx:id="piechart" text="Pie Chart" />
          </tabs>
       </JFXTabPane>
+      <JFXSpinner fx:id="loading" layoutX="275.0" layoutY="175.0" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="175.0" />
    </children>
 </AnchorPane>

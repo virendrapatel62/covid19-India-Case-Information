@@ -27,9 +27,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DataCollector dataCollector = new DataCollector();
-        dataCollector.collectData();
-        System.out.println(new DataManager().getData());
 
 
 
@@ -37,6 +34,7 @@ public class Main extends Application {
         primaryStage.setTitle("Covid 19 Information");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
+        primaryStage.setMaximized(true);
     }
 
 

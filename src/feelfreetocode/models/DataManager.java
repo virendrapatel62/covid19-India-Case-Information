@@ -1,17 +1,20 @@
 package feelfreetocode.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class DataManager {
-    private static ArrayList<Case> data = new ArrayList<Case>();
+    private static ObservableList<Case> data = FXCollections.observableList(new ArrayList<>());
 
 
-    public ArrayList<Case> getData() {
+    public static ObservableList<Case> getData() {
         return data;
     }
 
-    public void setData(ArrayList<Case> data) {
-        this.data = data;
+    public static void setData(ObservableList<Case> data) {
+        DataManager.data = data;
     }
 
     public void append(Case cs){
@@ -20,5 +23,9 @@ public class DataManager {
 
     public void clear(){
         data.clear();
+    }
+
+    public void addAll(ArrayList cases){
+        data.addAll(cases);
     }
 }
